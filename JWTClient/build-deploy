@@ -1,0 +1,21 @@
+#!/bin/sh
+#deploy="false"
+deploy="true"
+
+image=JWTClient
+version=1.0-SNAPSHOT
+latest=true
+
+#OPTIONS="--no-cache --force-rm"
+#OPTIONS="--no-cache"
+#OPTIONS="--force-rm"
+OPTIONS=""
+
+docker build ${OPTIONS} -t nj9666/${image}:1.0-SNAPSHOT .
+if [ "$?" -eq 0 ] && [ ${deploy} == "true" ]; then
+    docker push nj9666/${image}:1.0-SNAPSHOT
+    if [ "$latest" == "true" ]; then
+        docker tag nj9666/${image}:1.0-SNAPSHOT nj9666/${image}:latest
+        docker push nj9666/${image}:latest
+    fi
+fi

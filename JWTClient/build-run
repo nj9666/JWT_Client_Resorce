@@ -1,0 +1,3 @@
+#!/bin/sh
+mvn clean package && docker build -t nj9666/JWTClient .
+docker rm -f JWTClient 2>/dev/null || true && docker run -it --name JWTClient -p 8080:8080 -p 4848:4848 -p 8181:8181 --name JWTClient nj9666/JWTClient
